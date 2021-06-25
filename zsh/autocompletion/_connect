@@ -1,0 +1,10 @@
+#compdef connect
+
+local state
+
+_arguments \
+    '1: :->host_names'
+
+case $state in
+    (host_names) _arguments "1:profiles:$(get_instances)"
+esac

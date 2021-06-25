@@ -1,0 +1,10 @@
+#compdef switch
+
+local state
+
+_arguments \
+    '1: :->profiles'
+
+case $state in
+    (profiles) _arguments "1:profiles:(local/mobile dev/mobile stg/mobile prod/mobile)"
+esac
