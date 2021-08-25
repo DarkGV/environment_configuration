@@ -1,5 +1,6 @@
 alias OTP21.3=". ~/Erlang/21.3/activate"
-. ~/Erlang/21.3/activate
+alias OTP23=". ~/Erlang/OTP23/activate"
+. ~/Erlang/OTP23/activate
 alias git-graph="git log --oneline --graph --decorate --all"
 alias checkout="git checkout"
 alias branch="git branch"
