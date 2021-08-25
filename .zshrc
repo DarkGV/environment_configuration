@@ -70,7 +70,6 @@ foreach cfg (
 }
 
 foreach auto (
-    build
     connect
     git-patch
 ) {
