@@ -72,6 +72,7 @@ foreach cfg (
 foreach auto (
     connect
     git-patch
+    git_strict_mode
 ) {
     source ~/.zsh/automation/$auto.sh
 }
@@ -104,7 +105,18 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 #alias code="open /Applications/'Visual Studio Code.app'"
-export PATH="$PATH:/Users/diogo.almirante/go/bin:/Users/diogo.almirante/.bin"
+export PATH="$PATH:/Users/diogo.almirante/go/bin:/Users/diogo.almirante/.bin:/Users/diogo.almirante/OpenSource/neovim/build/bin"
 
 autoload compinit
 compinit
+
+# Added by GDK bootstrap
+export PKG_CONFIG_PATH="/usr/local/opt/icu4c/lib/pkgconfig:${PKG_CONFIG_PATH}"
+
+# Added by GDK bootstrap
+export RUBY_CONFIGURE_OPTS="--with-openssl-dir=/usr/local/opt/openssl@3 --with-readline-dir=/usr/local/opt/readline"
+
+# Added by GDK bootstrap
+source /Users/diogo.almirante/.asdf/asdf.sh
+
+alias python=python3
