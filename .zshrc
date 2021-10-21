@@ -1,3 +1,15 @@
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time oh-my-zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
+ZSH_THEME="gnzh"
+
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -57,12 +69,14 @@ fpath=(~/.zsh/autocompletion $fpath)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
+
+source $ZSH/oh-my-zsh.sh
+
 foreach cfg (
     aliases.zsh
     direnv.zsh
     load.zsh
     prompt.zsh
-    theme.zsh
     variables.zsh
     workload.zsh
 ) {
@@ -76,8 +90,6 @@ foreach auto (
 ) {
     source ~/.zsh/automation/$auto.sh
 }
-
-source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
