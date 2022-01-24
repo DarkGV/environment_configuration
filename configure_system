@@ -1,0 +1,108 @@
+#!/bin/bash
+
+source "company"
+
+DEPENDENCIES="awscli direnv kerl terraform jq yq autoconf openssl docker-compose"
+
+SERVICES_DESTINATION+=( "${SERVICES_DESTINATION[@]}" "github:github.com" )
+
+function get_git_hostname() {
+    target_hostname=""
+    for service in "${SERVICES_DESTINATION[@]}" ; do
+        service_name="${service%%:*}"
+        service_hostname="${service##*:}"
+        if [ $1 == service_name ];
+        then
+            target_hostname=$service_hostname
+        fi
+    done
+    echo $target_hostname
+}
+
+function create_git_keys() {
+    service=$1
+    service_hotsname=$(get_git_hostname $1)
+    echo "Creating git keys for $service in ~/.ssh/${service}_access"
+    ssh-keygen -t ed25519 -f ~/.ssh/${service}_access
+    
+    if [ -z $? ];
+    then
+        echo "Keys generated successfully"
+    else
+        echo "There was a problem generating the keys. Please check and retry."
+        return
+    fi
+
+
+    echo "Saving new configs on ssh configuration file"
+    echo -e `Host ${service_host_name}\n\tAddKeysToAgent yes\n\tUseKeychain yes\n\tIdentityFile ~/.ssh/${service}_access\n` > ~/.ssh/config
+
+    cat ~/.ssh/${service}_access.pub | pbcopy
+    echo "The pubkey information is currently on your clipboard. Please paste it now"
+    read -p "Press any key to continue" -n 1
+    echo "Cleaning clipboard"
+    echo "" | pbcopy 
+    echo "Adding key to ssh-agent"
+    ssh-add -K ~/.ssh/${service}_access    
+}
+
+function install_zsh() {
+    echo "Installing zsh..."
+    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+}
+
+function install_ssm(){
+    echo "Downloading ssm agent"
+    curl "https://s3.amazonaws.com/session-manager-downloads/plugin/latest/mac/sessionmanager-bundle.zip" -o "sessionmanager-bundle.zip"
+    unzip sessionmanager-bundle.zip
+    echo "Installing ssm agent"
+    sudo ./sessionmanager-bundle/install -i /usr/local/sessionmanagerplugin -b /usr/local/bin/session-manager-plugin
+    echo "Cleaning trash"
+    rm -r sessionmanager-bundle.zip sessionmanager-bundle
+}
+
+function build_erlang() {
+    echo "Building erlang version $1"
+    version=( $(sed 's/\./ /g' <<< "$1") )
+    vsn_name=OTP${version[1]}.${version[2]}
+    kerl build $1 $version_name
+    echo "Installing Erlang"
+    kerl install $version_name ~/.erlangbuilds/$version_build
+}
+
+function get_rebar3() {
+    echo "Fetching rebar3"
+    curl https://s3.amazonaws.com/rebar3/rebar3 --output rebar3
+    echo "Changing permissions"
+    chmod a+x rebar3
+    echo "Installing"
+    mv rebar3 ~/usr/local/bin
+}
+
+function brew_dependencies() {
+    echo "Installing brew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    echo "Installing dependencies"
+    brew install $DEPENDENCIES
+}
+
+function link_default_setup(){
+    echo "Linking files"
+    ln -s ~/environment_configuration/zsh ~/.zsh
+    ln -s ~/environment_configuration/.zshrc ~/.zshrc
+}
+
+## First install brew and some dependencies
+brew_dependencies
+
+## Install ssm
+install_ssm
+
+## Now we have the minor stack to work, install productivie boosters
+install_zsh
+link_default_setup
+build_erlang
+get_rebar3
+create_git_keys
+
+main
