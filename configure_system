@@ -2,7 +2,7 @@
 
 source "company"
 
-DEPENDENCIES="awscli direnv kerl terraform jq yq autoconf openssl docker-compose"
+DEPENDENCIES="git-crypt awscli direnv kerl terraform jq yq autoconf openssl docker-compose"
 
 SERVICES_DESTINATION+=( "${SERVICES_DESTINATION[@]}" "github:github.com" )
 
