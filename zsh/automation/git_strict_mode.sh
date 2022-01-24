@@ -1,5 +1,5 @@
 STRICT_MODE=${STRICT_MODE:-"true"}
-GIT_PATH=${GIT_PATH:-"/usr/local/bin/git"}
+GIT_PATH=${GIT_PATH:-"git"}
 MAKEFILES=${MAKEFILE:-["Makefile"]}
 MAKE_COMMAND=${MAKE_COMMAND:-"make"}
 
