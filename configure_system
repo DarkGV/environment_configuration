@@ -6,19 +6,6 @@ DEPENDENCIES="git-crypt awscli direnv kerl terraform jq yq autoconf openssl dock
 
 SERVICES_DESTINATION+=( "${SERVICES_DESTINATION[@]}" "github:github.com" )
 
-function get_git_hostname() {
-    target_hostname=""
-    for service in "${SERVICES_DESTINATION[@]}" ; do
-        service_name="${service%%:*}"
-        service_hostname="${service##*:}"
-        if [ $1 == $service_name ];
-        then
-            target_hostname=$service_hostname
-        fi
-    done
-    echo $target_hostname
-}
-
 function create_git_keys() {
     for service in "${SERVICES_DESTINATION[@]}" ; do
         service_name="${service%%:*}"
