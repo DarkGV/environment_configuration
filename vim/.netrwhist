@@ -1,5 +1,6 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =3
+let g:netrw_dirhistcnt =4
+let g:netrw_dirhist_4='/Users/diogo.almirante/environment_configuration'
 let g:netrw_dirhist_3='/Users/diogo.almirante/Desktop/Miniclip/Chess/chess.support/aws/inc'
 let g:netrw_dirhist_2='/Users/diogo.almirante/Desktop/Miniclip/Chess/chess.support/aws'
 let g:netrw_dirhist_1='/Users/diogo.almirante/Desktop/Miniclip/Chess/chess.server'
