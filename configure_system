@@ -58,7 +58,7 @@ function get_rebar3() {
     echo "Changing permissions"
     chmod a+x rebar3
     echo "Installing"
-    mv rebar3 ~/usr/local/bin
+    mv rebar3 /usr/local/bin
 }
 
 function brew_dependencies() {
@@ -71,7 +71,12 @@ function brew_dependencies() {
 function link_default_setup(){
     echo "Linking files"
     ln -s ~/environment_configuration/zsh ~/.zsh
+    rm ~/.zshrc 2> /dev/null ## If there is a zshell configuration delete it.
     ln -s ~/environment_configuration/.zshrc ~/.zshrc
+    # And also link vim related folders
+    rm -rf ~/.vim 2> /dev/null
+    ln -s ~/environment_configuration/vim ~/.vim
+    ln -s ~/environment_configuration/.vimrc ~/.vimrc
 }
 
 ## First install brew and some dependencies
