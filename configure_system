@@ -2,7 +2,7 @@
 
 source "company"
 
-DEPENDENCIES="git-crypt awscli direnv kerl terraform jq yq autoconf openssl docker-compose"
+DEPENDENCIES="git-crypt awscli direnv kerl terraform jq yq autoconf openssl docker-compose jinja2-cli"
 
 SERVICES_DESTINATION+=( "${SERVICES_DESTINATION[@]}" "github:github.com" )
 
@@ -80,13 +80,13 @@ function link_default_setup(){
 }
 
 ## First install brew and some dependencies
-brew_dependencies
+#brew_dependencies
 
 ## Install ssm
 install_ssm
 
 ## Now we have the minor stack to work, install productivie boosters
-install_zsh
-link_default_setup
-get_rebar3
-create_git_keys
+#install_zsh
+#link_default_setup
+#get_rebar3
+#create_git_keys
