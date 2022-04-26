@@ -4,7 +4,7 @@ HIGH_TRAFFIC_MIN_OFFSET=${HIGH_TRAFFIC_MIN_OFFSET:-10}
 HIGH_TRAFFIC_MAX_OFFSET=${HIGH_TRAFFIC_MAX_OFFSET:-22}
 
 function get_instances() {
-    hosts=$(cat ~/.ssh/config.d/chess-ops@miniclip.com.eu-central-1.aws | grep "$AWS_PROFILE-mobile")
+    hosts=$(cat ~/.ssh/config.d/*************************************** | grep "$AWS_PROFILE-mobile")
     instances_names=$(echo $hosts | sed -e "s/Host //g")
     echo "($(echo $instances_names | sed -e "s/\n/ /g"))"
 }
