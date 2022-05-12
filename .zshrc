@@ -87,6 +87,7 @@ foreach auto (
     connect
     git-patch
 #    git_strict_mode
+    infile
 ) {
     source ~/.zsh/automation/$auto.sh
 }
